@@ -1,0 +1,65 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Driver Location Update</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"
+      integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <h1>Driver Location Update</h1>
+    <button onclick="sendLocation()">Send Location</button>
+
+    <script>
+      const socket = io("http://localhost:5000");
+      const driverId = "driver11";
+      function sendLocation() {
+        debugger;
+        if ("geolocation" in navigator) {
+          debugger;
+          //navigator.geolocation.getCurrentPosition((position) => {
+          const latitude = "-255.0110";
+          const longitude = "313.0110";
+          const driverData = {
+            driverId: driverId, // Replace with unique driver ID
+            latitude,
+            longitude,
+          };
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      socket.on("driverLocationUpdate", (data) => {
+        console.log("New driver location:", data);
+      });
+      const driverData = {
+        driverId: "driver1", // Replace with unique driver ID
+        latitude: "0.123654",
+        longitude: "2.123665",
+      };
+      //socket.emit('locationUpdate', { latitude, longitude });
+      // setTimeout(() => {
+      //             socket.emit('locationUpdate', driverData);
+      //             console.log('New driver location added:', driverData);
+      //         }, 5000);
+
+      setInterval(() => {
+        // Here, replace the latitude and longitude with real dynamic data
+        const driverId = "driver" + Math.random() * 51;
+        const latitude = Math.random() * 90;
+        const longitude = Math.random() * 180;
+        const data = { driverId, latitude, longitude };
+
+        // Emit the location update
+        socket.emit("locationUpdate", data);
+        console.log("New driver location added:", data);
+      }, 1000); // 1000 ms = 1 second
+    </script>
+  </body>
+</html>

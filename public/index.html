@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Driver Location Update</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Driver Location Update</h1>
+    <button onclick="sendLocation()">Send Location</button>
+
+    <script>
+      const socket = io("http://localhost:5000");
+
+      const driverId = "driver11";
+      function sendLocation() {
+        debugger;
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            const driverData = {
+              driverId: driverId, // Replace with unique driver ID
+              latitude,
+              longitude,
+            };
+
+            setTimeout(() => {
+              socket.emit("locationUpdate", driverData);
+            }, 5000);
+            //socket.emit('locationUpdate', driverData);
+          });
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      socket.on("driverLocationUpdate", (data) => {
+        console.log("Updated driver location:", data);
+      });
+    </script>
+  </body>
+</html>

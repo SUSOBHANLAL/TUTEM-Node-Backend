@@ -1,0 +1,100 @@
+/////////////////////////////////////////////////
+//package need to install
+////////////////////////////////////////////////
+npm install bcryptjs cors dotenv express jsonwebtoken mongoose nodemailer
+
+
+//////////////////////////////////////////////
+// the databas will be test
+/////////////////////////////////////////////
+
+////////////////////////////////////////////
+//another things another
+////////////////////////////////////////////
+To  verify the email get API
+http://localhost:5000/api/auth/verify-email/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MGZjOWMwNTQzNzZiMWU0ZGM1YzdkOCIsImlhdCI6MTcyOTA4NzkzNiwiZXhwIjoxNzI5MDkxNTM2fQ.DxOBjzmuzuUiGr4KIV3YyMw4oFlGowjkWPcsCo4xBDo
+
+For register
+
+
+
+
+ Command  to  genrate random key
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'));"
+
+
+
+
+In the request URL field, enter: http://localhost:5000/api/auth/register (or the URL of your server).
+BODY ==> 
+
+{
+  "name": "Test User",
+  "email": "testuser@example.com",
+  "password": "password123",
+  "phone": "1234567890",
+  "address": "123 Test St.",
+  "age": 25,
+  "gender": "Other"
+}
+ This  is  the  updated one here  , please try  with this below one
+{
+  "name": "John Doe",
+  "email": "lal.susobhaniitb@gmail.com",
+  "password": "securePassword123",
+  "confirmPassword": "securePassword123",
+  "phone": "1234567890",
+  "address": "123 Main St, Anytown, USA",
+  "dateOfBirth": "1990-01-01",
+  "gender": "male",
+  "userRole": "user"
+}
+
+Add another request, name it "Login User," and set it to "POST."
+
+Use the URL: http://localhost:5000/api/auth/login.
+
+BODY ==> 
+{
+  "email": "testuser@example.com",
+  "password": "password123"
+}
+
+
+Email Verification
+Add another request, name it "Verify Email," and set it to "GET."
+Use the URL: http://localhost:5000/api/auth/verify-email/{token} (replace {token} with
+
+
+ Forgot Password
+Add another request, name it "Forgot Password," and set it to "POST."
+
+Use the URL: http://localhost:5000/api/auth/forgot-password.
+BODY ==> 
+
+{
+  "email": "testuser@example.com"
+}
+
+
+
+ Reset Password
+Add another request, name it "Reset Password," and set it to "POST."
+
+Use the URL: http://localhost:5000/api/auth/reset-password/{token} (replace {token} with
+
+BODY ===>
+
+{
+  "password": "newpassword123"
+}
+
+Websocket testing
+
+call in browser with this url: http://localhost:5000/driver/location
+it will update driver location every 1 sec. The call is made from frontend index.ejs and backend code updates in dateOfBirth.
+Later on, it should be called form frontend of flutter app.
+
+
+
+

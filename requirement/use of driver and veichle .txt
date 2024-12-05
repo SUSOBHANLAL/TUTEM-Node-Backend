@@ -1,0 +1,41 @@
+
+
+http://localhost:5000/api/vehicle-type
+
+{
+  "name": "Truck",
+  "description": "Heavy-duty transport vehicle"
+}
+
+
+http://localhost:5000/api/driver-vehicle-details
+
+{
+  "driverID": "672f5db312b1af0609596540", 
+  "license": "ABC123456",
+  "vehicleDtls": "Ford F-150"
+}
+
+
+http://localhost:5000/api/driver-status
+
+{
+  "driverID": "672f5db312b1af0609596540",
+  "description": "Driver on duty",
+  "longitude": 77.5946,
+  "latitude": 12.9716
+}
+
+
+******************************* through  id  when  we need to  search  that  veichle details  *************************************
+This is the get  request  
+http://localhost:5000/api/vehicle-type/6734d1497716185d70f55a53
+
+
+ and the  output:
+ {
+    "_id": "6734d1497716185d70f55a53",
+    "name": "Truck",
+    "description": "Heavy-duty transport vehicle",
+    "__v": 0
+}
