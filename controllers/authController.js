@@ -19,6 +19,7 @@ exports.register = async (req, res) => {
   } = req.body;
 
   try {
+    console.log('INSIDE CONTROLLER', req.body);
     // Check if passwords match
     if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match" });
@@ -64,24 +65,66 @@ exports.register = async (req, res) => {
   }
 };
 
+// // Login User
+// exports.login = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user || !(await bcrypt.compare(password, user.password))) {
+//       return res.status(400).json({ message: "Invalid credentials" });
+//     }
+
+//     if (!user.isVerified) {
+//       return res.status(400).json({ message: "Email not verified" });
+//     }
+
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "1h",
+//     });
+//     res.json({ token });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
+
+
+
+
 // Login User
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find the user by email
     const user = await User.findOne({ email });
+
+    // Validate user existence and password
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Check if the user has verified their email
     if (!user.isVerified) {
       return res.status(400).json({ message: "Email not verified" });
     }
 
+    // Generate a token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.json({ token });
+
+    // Exclude sensitive information (like password) from the response
+    const { password: _, verificationToken, ...userInfo } = user.toObject();
+
+    // Send the token and user details in the response
+    res.json({ 
+      message: "Login successful", 
+      token, 
+      user: userInfo 
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
