@@ -5,7 +5,9 @@ const {
   verifyEmail,
   forgotPassword,
   resetPassword,
-  updateManualVerification, // New route
+  updateManualVerification,
+  searchUser,
+  // New route
 } = require("../controllers/authController");
 const router = express.Router();
 
@@ -16,5 +18,7 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);
 // Update manual verification field
 router.put("/update-verification", updateManualVerification); // New PUT route for manual verification update
+
+router.post("/search-user", searchUser);
 
 module.exports = router;
